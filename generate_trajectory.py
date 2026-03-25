@@ -2,6 +2,7 @@ import torch
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+import config
 
 from model.noise_predictor import NoisePredictor
 import argparse
@@ -19,7 +20,7 @@ os.makedirs("generated", exist_ok=True)
 
 device = torch.device("cpu")
 
-T = 1000
+T = config.NOISE_STEPS
 trajectory_length = 130 # need to cross check this once again before final submission
 
 

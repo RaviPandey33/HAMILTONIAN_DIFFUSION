@@ -68,11 +68,12 @@ optimizer = optim.Adam(model.parameters(), lr=5e-4)
 loss_fn = nn.MSELoss()
 
 epochs = config.EPOCHS
-
+eps = config.EPS
 
 # Energy loss weight
 lambda_energy = config.LAMBDA_ENERGY
 lambda_dyn = config.LAMBDA_DYNAMICS
+lambda_diff = config.LAMBDA_DIFFUSION
 
 # ****************************
 # Training loop !
@@ -125,19 +126,19 @@ for epoch in range(epochs):
 
         dt = config.DT
 
-        dq_dt = (q[:,1:] - q[:,:-1]) / dt
-        dp_dt = (p[:,1:] - p[:,:-1]) / dt
+        dq_dt = (q[:,2:] - q[:,:-2]) / (2*dt)
+        dp_dt = (p[:,2:] - p[:,:-2]) / (2*dt)
 
-        p_mid = p[:,:-1]
-        q_mid = q[:,:-1]
+        p_mid = p[:,1:-1]
+        q_mid = q[:,1:-1]
 
-        dyn_loss = torch.mean((dq_dt - p_mid)**2 + (dp_dt + q_mid)**2)
-
+        dyn_loss = torch.mean(torch.square(dq_dt - p_mid) + torch.square(dp_dt + q_mid))
+        dyn_loss = dyn_loss / (torch.mean(p_mid**2 + q_mid**2) + eps)
         # ============================
         # Total loss
         # ============================
 
-        loss = diffusion_loss + lambda_energy * energy_loss + lambda_dyn * dyn_loss
+        loss = lambda_diff * diffusion_loss + lambda_energy * energy_loss + lambda_dyn * dyn_loss
 
 
         optimizer.zero_grad()

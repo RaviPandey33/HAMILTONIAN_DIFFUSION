@@ -17,7 +17,7 @@ args = parser.parse_args()
 RUN_NAME = args.run_name
 RUN_DIR = f"experiments/{RUN_NAME}"
 
-print("\n---------------- DATASET INFORMATION ----------------")
+print("------------------ DATASET INFORMATION ----------------")
 
 # loading dataset
 dataset = np.load(config.DATA_PATH)
@@ -31,8 +31,7 @@ print("Number of trajectories :", num_traj)
 print("Timesteps per traj     :", timesteps)
 print("State dimension        :", dims)
 
-
-print("\n---------------- GENERATED TRAJECTORY ANALYSIS ----------------")
+print("------------------ GENERATED TRAJECTORY ANALYSIS ----------------")
 
 traj = np.load(f"{RUN_DIR}/generated_trajectory.npy")
 

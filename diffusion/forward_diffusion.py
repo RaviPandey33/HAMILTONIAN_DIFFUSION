@@ -9,7 +9,7 @@ dataset = np.load(config.DATA_PATH)
 trajectory = dataset[0]
 
 
-T = 1000
+T = config.NOISE_STEPS
 beta = np.linspace(1e-4, 0.02, T)
 alpha = 1 - beta
 alpha_bar = np.cumprod(alpha)

@@ -7,13 +7,12 @@ import config
 # SETTINGS
 # ****************************
 
-RUN_NAME = "run1_vanilla"
-REGENERATE_DATA = 1   # 1 = regenerate dataset, 0 = skip
+RUN_NAME = "run2_energy_loss"
+REGENERATE_DATA = 0   # 1 = regenerate dataset, 0 = skip
 FORWARD_DIFFUSION = 0   
 MODEL_TRAINING = 0
-GENERATE_TRAJECTORY = 0
-ANALYZE_GENERATOR = 0   
-
+GENERATE_TRAJECTORY = 1
+ANALYZE_GENERATOR = 1
 
 # ****************************
 # EXPERIMENT CONFIG
